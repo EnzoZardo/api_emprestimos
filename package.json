@@ -1,0 +1,22 @@
+{
+  "name": "api_emprestimos",
+  "version": "1.0.0",
+  "description": "API de empréstimos para a matéria de Desenvolvimento de Sistemas Web",
+  "main": "index.js",
+  "type":"module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EnzoZardo/api_emprestimos"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

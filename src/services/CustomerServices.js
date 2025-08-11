@@ -1,10 +1,12 @@
 const customers = [];
 
 export const saveCustomer = (customer) => {
-  if (!customers.find((x) => customer.cpf == x.cpf)) {
     customers.push(customer);
-  }
 };
+
+export const findByCpf = (cpf) => {
+  return customers.find((x) => cpf == x.cpf)
+}
 
 export const findAll = () => {
   return customers;

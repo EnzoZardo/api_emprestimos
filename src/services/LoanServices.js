@@ -3,18 +3,20 @@ import {
   guaranteedCredit,
   personalCredit,
 } from "../parameters/Parameters.js";
-import { saveCustomer } from "./CustomerServices.js";
+import { findByCpf, saveCustomer } from "./CustomerServices.js";
 
 export const calculateCredits = (data) => {
   const loans = [];
   const { income, location, age, name, cpf } = data;
 
-  saveCustomer({
-    name,
-    cpf,
-    age,
-    location,
-  });
+  if (!findByCpf(cpf)) {
+    saveCustomer({
+      name,
+      cpf,
+      age,
+      location,
+    });
+  }
 
   if (personalCredit.condition(income, age, location)) {
     loans.push(personalCredit.credit);

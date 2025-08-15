@@ -13,7 +13,7 @@ import {
 	findLoansByCpf,
 } from '@/repositories/loan.repository';
 import { findByCpf, saveCustomer } from '@/services/CustomerServices';
-import { Failure } from '@/utils/ResultPattern/Failure';
+import { FailTypes, Failure } from '@/utils/ResultPattern/Failure';
 import { Result, ResultValue } from '@/utils/ResultPattern/Result';
 
 const findAvailableCredits = (
@@ -44,7 +44,10 @@ const calculateCredits = async (
 
 	const customer = await findByCpf(cpf);
 
-	if (customer.isFailure) {
+	if (
+		customer.isFailure &&
+		customer.failure!.failType != FailTypes.NotFound
+	) {
 		return Failure.From(customer.failure!).toResultValue();
 	}
 

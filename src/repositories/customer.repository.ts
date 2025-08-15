@@ -1,10 +1,10 @@
-import { CustomerModel } from '@/models/Customer';
 import Customer from '@/models/MongoDB/CustomerSchema';
+import { CustomerModel } from '@/models/Customer';
 import { Failure } from '@/utils/ResultPattern/Failure';
 import { Result, ResultValue } from '@/utils/ResultPattern/Result';
 
 const ERROR_MESSAGE =
-	'Ocorreu um erro ao buscar os dados no banco de dados. Tente novameente mais tarde!';
+	'Ocorreu um erro ao buscar os dados no banco de dados. Tente novamente mais tarde!';
 
 const findAllCustomers = async (): Promise<ResultValue<CustomerModel[]>> => {
 	try {

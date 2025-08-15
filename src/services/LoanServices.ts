@@ -1,33 +1,22 @@
+import { Credit, CreditTypesLabels } from '@/models/Credit';
 import { CustomerModel } from '@/models/Customer';
-import { LoanModel } from '@/models/Loan';
+import { LoanModel, LoanRequestModel } from '@/models/Loan';
 import {
 	consignmentCredit,
 	guaranteedCredit,
 	personalCredit,
 } from '@/parameters/Parameters';
+import { createLoan } from '@/repositories/loan.repository';
 import { findByCpf, saveCustomer } from '@/services/CustomerServices';
 import { Failure } from '@/utils/ResultPattern/Failure';
 import { ResultValue } from '@/utils/ResultPattern/Result';
 
-const calculateCredits = async (
-	data: CustomerModel
-): Promise<ResultValue<LoanModel>> => {
-	const loans = [];
-	const { income, location, age, cpf } = data;
-
-	const customer = await findByCpf(cpf);
-
-	if (customer.isFailure) {
-		return Failure.From(customer.failure!).toResultValue();
-	}
-
-	if (customer.isSuccess && !customer.value) {
-		const result = await saveCustomer(data);
-		if (result.isFailure) {
-			return result.toResultValue();
-		}
-	}
-
+const findAvailableCredits = (
+	income: number,
+	age: number,
+	location: string
+): Credit[] => {
+	const loans: Credit[] = [];
 	if (personalCredit.condition(income, age, location)) {
 		loans.push(personalCredit.credit);
 	}
@@ -40,10 +29,67 @@ const calculateCredits = async (
 		loans.push(consignmentCredit.credit);
 	}
 
+	return loans;
+};
+
+const calculateCredits = async (
+	data: CustomerModel
+): Promise<ResultValue<LoanModel>> => {
+	const { income, location, age, cpf, name } = data;
+
+	const customer = await findByCpf(cpf);
+
+	if (customer.isFailure) {
+		return Failure.From(customer.failure!).toResultValue();
+	}
+
+	if (!customer.value) {
+		const result = await saveCustomer(data);
+		if (result.isFailure) {
+			return result.toResultValue();
+		}
+	}
+
 	return ResultValue.Ok({
-		customer: data.name,
-		loans,
+		customer: name,
+		loans: findAvailableCredits(income, age, location),
 	});
 };
 
-export { calculateCredits };
+const requestNewLoan = async (model: LoanRequestModel) => {
+	const customer = await findByCpf(model.cpf);
+
+	if (customer.isFailure) {
+		return Failure.From(customer.failure!).toResultValue();
+	}
+
+	if (!customer.value) {
+		return Failure.NotFound(
+			`Não foi encontrado cliente com o CPF ${model.cpf}.`
+		);
+	}
+
+	const { income, age, location } = customer.value;
+
+	const loans = findAvailableCredits(income, age, location);
+
+	const selectedLoan = loans.find(
+		(x) => x.type == CreditTypesLabels[model.type]
+	);
+	if (!selectedLoan) {
+		return Failure.Forbidden(
+			'O cliente não está autorizado receber um empréstimo deste tipo.'
+		);
+	}
+
+	return await createLoan({
+		installmentsNumber: model.installmentsNumber,
+		amount: model.amount,
+		customerCpf: model.cpf,
+		customer: customer.value._id!,
+		interestRate: selectedLoan.interestRate,
+		type: selectedLoan.type,
+	});
+};
+
+export { calculateCredits, requestNewLoan };

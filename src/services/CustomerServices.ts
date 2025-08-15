@@ -8,8 +8,17 @@ import {
 import { Failure } from '@/utils/ResultPattern/Failure';
 import { Result, ResultValue } from '@/utils/ResultPattern/Result';
 
-const saveCustomer = async (customer: CustomerModel): Promise<Result> =>
-	(await createNewCustomer(customer)).toResult();
+const saveCustomer = async (customer: CustomerModel): Promise<Result> => {
+	const customerResult = await findCustomerByCpf(customer.cpf);
+
+	if (customerResult.value) {
+		return Failure.Forbidden(
+			`Não é possível criar o cliente, pois o CPF ${customer.cpf} já está em uso.`
+		);
+	}
+
+	return (await createNewCustomer(customer)).toResult();
+};
 
 const findByCpf = async (cpf: string): Promise<ResultValue<CustomerModel>> => {
 	const customerResult = await findCustomerByCpf(cpf);

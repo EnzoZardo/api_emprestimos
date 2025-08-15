@@ -4,11 +4,13 @@ const FailTypes = {
 	InternalServer: 0,
 	BadRequest: 1,
 	NotFound: 2,
+	Forbidden: 3,
 } as const;
 
 const FailStatusCodes = {
 	[FailTypes.InternalServer]: 500,
 	[FailTypes.BadRequest]: 400,
+	[FailTypes.Forbidden]: 403,
 	[FailTypes.NotFound]: 404,
 } as const;
 
@@ -33,6 +35,10 @@ class Failure {
 
 	public static NotFound(message: string = 'failure'): Result {
 		return Result.Fail(message, FailTypes.NotFound);
+	}
+
+	public static Forbidden(message: string = 'failure'): Result {
+		return Result.Fail(message, FailTypes.Forbidden);
 	}
 
 	public static BadRequest(message: string = 'failure'): Result {

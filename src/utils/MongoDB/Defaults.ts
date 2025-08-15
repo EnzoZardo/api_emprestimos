@@ -1,9 +1,11 @@
-export const RequiredString = {
+const RequiredString = {
 	type: String,
 	required: true,
 } as const;
 
-export const RequiredNumber = {
+const RequiredNumber = {
 	type: Number,
 	required: true,
 } as const;
+
+export { RequiredString, RequiredNumber };

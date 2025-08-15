@@ -55,16 +55,16 @@ class Result extends ResultBase<string> {
 		return new Result(false, null, new Failure(value, failType));
 	}
 
-	public toResultT<TReturn>(): ResultT<TReturn> {
+	public toResultValue<TReturn>(): ResultValue<TReturn> {
 		if (this.isSuccess) {
-			return ResultT.Ok();
+			return ResultValue.Ok();
 		}
 		const { message, failType } = this.failure!;
-		return ResultT.Fail(message, failType);
+		return ResultValue.Fail(message, failType);
 	}
 }
 
-class ResultT<TResult> extends ResultBase<TResult> {
+class ResultValue<TResult> extends ResultBase<TResult> {
 	constructor(
 		isSuccess: boolean,
 		value?: TResult | null,
@@ -77,15 +77,15 @@ class ResultT<TResult> extends ResultBase<TResult> {
 		this.isFailure = !isSuccess;
 	}
 
-	public static Ok<T>(value?: T): ResultT<T> {
-		return new ResultT(true, value);
+	public static Ok<T>(value?: T): ResultValue<T> {
+		return new ResultValue(true, value);
 	}
 
 	public static Fail<T>(
 		message: string = 'failure',
 		failType: FailType = FailTypes.InternalServer
-	): ResultT<T> {
-		return new ResultT<T>(false, null, new Failure(message, failType));
+	): ResultValue<T> {
+		return new ResultValue<T>(false, null, new Failure(message, failType));
 	}
 
 	public toResult(): Result {
@@ -97,4 +97,4 @@ class ResultT<TResult> extends ResultBase<TResult> {
 	}
 }
 
-export { ResultBase, Result, ResultT };
+export { ResultBase, Result, ResultValue };

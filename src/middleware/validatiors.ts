@@ -1,6 +1,6 @@
 import { body } from 'express-validator';
 
-export const customerValidation = [
+const customerCreateValidation = [
 	body('name').notEmpty().withMessage("O campo 'name' é obrigatório").trim(),
 	body('age')
 		.notEmpty()
@@ -26,3 +26,14 @@ export const customerValidation = [
 		.matches(/\d{11}/)
 		.withMessage("O campo 'cpf' deve ter 11 dígitos"),
 ];
+
+const customerCpfValidation = [
+	body('cpf')
+		.notEmpty()
+		.withMessage("O campo 'cpf' é obrigatório")
+		.isNumeric()
+		.matches(/\d{11}/)
+		.withMessage("O campo 'cpf' deve ter 11 dígitos"),
+];
+
+export { customerCreateValidation, customerCpfValidation };

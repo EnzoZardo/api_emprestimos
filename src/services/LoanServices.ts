@@ -1,17 +1,32 @@
 import { CustomerModel } from '@/models/Customer';
+import { LoanModel } from '@/models/Loan';
 import {
 	consignmentCredit,
 	guaranteedCredit,
 	personalCredit,
 } from '@/parameters/Parameters.js';
 import { findByCpf, saveCustomer } from '@/services/CustomerServices.js';
+import { Failure } from '@/utils/ResultPattern/Failure';
+import { ResultT } from '@/utils/ResultPattern/Result';
 
-export const calculateCredits = (data: CustomerModel) => {
+export const calculateCredits = async (
+	data: CustomerModel
+): Promise<ResultT<LoanModel>> => {
 	const loans = [];
 	const { income, location, age, cpf } = data;
 
-	if (!findByCpf(cpf)) {
-		saveCustomer(data);
+	const customer = await findByCpf(cpf);
+
+	if (customer.isFailure) {
+		return Failure.From(customer.failure!).toResultT();
+	}
+
+	if (customer.isSuccess && !customer.value) {
+		const result = await saveCustomer(data);
+
+		if (result.isFailure) {
+			return result.toResultT();
+		}
 	}
 
 	if (personalCredit.condition(income, age, location)) {
@@ -26,8 +41,8 @@ export const calculateCredits = (data: CustomerModel) => {
 		loans.push(consignmentCredit.credit);
 	}
 
-	return {
+	return ResultT.Ok({
 		customer: data.name,
 		loans,
-	};
+	});
 };

@@ -1,4 +1,6 @@
-export const personalCredit = Object.freeze({
+import { CreditParameters } from '@/models/Loan';
+
+const personalCredit: CreditParameters = Object.freeze({
 	condition: (income: number, age: number, location: string) =>
 		income < 3000 ||
 		(income > 3000 && income < 5000 && age < 30 && location == 'RS'),
@@ -8,14 +10,16 @@ export const personalCredit = Object.freeze({
 	},
 });
 
-export const guaranteedCredit = Object.freeze({
+const guaranteedCredit: CreditParameters = Object.freeze({
 	condition: (income: number, age: number, location: string) =>
 		income <= 3000 ||
 		(income > 3000 && income < 5000 && age < 30 && location == 'RS'),
 	credit: { type: 'GUARANTEED', interest_rate: 3 },
 });
 
-export const consignmentCredit = Object.freeze({
+const consignmentCredit: CreditParameters = Object.freeze({
 	condition: (income: number) => income >= 5000,
 	credit: { type: 'CONSIGNMENT', interest_rate: 2 },
 });
+
+export { consignmentCredit, guaranteedCredit, personalCredit };

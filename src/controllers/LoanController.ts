@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { calculateCredits } from '@/services/LoanServices';
 
-export const listCredits = (req: Request, res: Response) => {
-	const credits = calculateCredits(req.body);
-	res.json(credits);
+export const listCredits = async (req: Request, res: Response) => {
+	const credits = await calculateCredits(req.body);
+	credits.toResponse(res);
 };

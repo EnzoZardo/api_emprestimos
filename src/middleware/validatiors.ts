@@ -5,8 +5,10 @@ export const customerValidation = [
 	body('age')
 		.notEmpty()
 		.withMessage("O campo 'age' é obrigatório")
-		.isNumeric()
-		.withMessage("O campo 'age' deve ser um número"),
+		.isInt({ min: 0 })
+		.withMessage(
+			"O campo 'age' deve ser um número inteiro maior do que zero"
+		),
 	body('income')
 		.notEmpty()
 		.withMessage("O campo 'income' é obrigatório")
@@ -19,7 +21,8 @@ export const customerValidation = [
 		.toUpperCase(),
 	body('cpf')
 		.notEmpty()
-		.withMessage("O campo 'location' é obrigatório")
-		.isLength({ min: 14, max: 14 })
-		.matches(/\d{3}.\d{3}\d{3}-\d{2}/),
+		.withMessage("O campo 'cpf' é obrigatório")
+		.isNumeric()
+		.matches(/\d{11}/)
+		.withMessage("O campo 'cpf' deve ter 11 dígitos"),
 ];

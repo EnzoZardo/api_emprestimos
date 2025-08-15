@@ -37,42 +37,27 @@ src/
    cd api_emprestimos
 Instale as dependências
 
-bash
-Copiar
-Editar
+
 npm install
 Configure as variáveis de ambiente
 Crie um arquivo .env na raiz com:
 
-env
-Copiar
-Editar
-MONGO_URI=sua_string_de_conexao
-PORT=3000
-Rodar em modo desenvolvimento
-
-bash
-Copiar
-Editar
 npm start
-Compilar para produção
+Compilar para dev
 
-bash
-Copiar
-Editar
 npm run build
 🔌 Rotas da API
-Método	Endpoint	Descrição
-POST	/creditos	Adiciona créditos a um cliente
-DELETE	/emprestimos/:id	Remove um empréstimo pelo ID
-POST	/emprestimos/:cpf	Cria um empréstimo para um cliente pelo CPF
-GET	/emprestimos	Lista todos os empréstimos
-POST	/emprestimos	Cria um novo empréstimo
-GET	/clientes	Lista todos os clientes
-POST	/clientes	Cadastra um novo cliente
-GET	/clientes/:cpf	Consulta um cliente pelo CPF
-DELETE	/clientes/:cpf	Remove um cliente pelo CPF
-GET	/rotas	Lista todas as rotas disponíveis
+Método	| Endpoint |	Descrição
+POST	| /creditos	| Busca os créditos disponíveis para um cliente e cadastra ele
+DELETE	| /emprestimos/:id	| Remove um empréstimo pelo ID
+GET |	/emprestimos/:cpf	| Cria um empréstimo para um cliente pelo CPF
+GET |	/emprestimos	| Lista todos os empréstimos
+POST |	/emprestimos	| Cria um novo empréstimo
+GET |	/clientes	| Lista todos os clientes
+POST |	/clientes	| Cadastra um novo cliente
+GET |	/clientes/:cpf	| Consulta um cliente pelo CPF
+DELETE |	/clientes/:cpf |	Remove um cliente pelo CPF
+GET |	/rotas |	Lista todas as rotas disponíveis
 
 🛠 Scripts disponíveis
 npm start – Executa a aplicação em modo desenvolvimento (com tsx watch).

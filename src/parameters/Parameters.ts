@@ -10,7 +10,7 @@ const personalCredit: CreditParameters = Object.freeze({
 		(income > 3000 && income < 5000 && age < 30 && location == 'RS'),
 	credit: {
 		type: CreditTypesLabels[CreditTypes.Personal],
-		interest_rate: 4,
+		interestRate: 4,
 	},
 });
 
@@ -20,7 +20,7 @@ const guaranteedCredit: CreditParameters = Object.freeze({
 		(income > 3000 && income < 5000 && age < 30 && location == 'RS'),
 	credit: {
 		type: CreditTypesLabels[CreditTypes.Guaranteed],
-		interest_rate: 3,
+		interestRate: 3,
 	},
 });
 
@@ -28,7 +28,7 @@ const consignmentCredit: CreditParameters = Object.freeze({
 	condition: (income: number) => income >= 5000,
 	credit: {
 		type: CreditTypesLabels[CreditTypes.Consignment],
-		interest_rate: 2,
+		interestRate: 2,
 	},
 });
 

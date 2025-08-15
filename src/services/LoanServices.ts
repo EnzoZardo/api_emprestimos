@@ -1,15 +1,20 @@
 import { Credit, CreditTypesLabels } from '@/models/Credit';
 import { CustomerModel } from '@/models/Customer';
-import { LoanModel, LoanRequestModel } from '@/models/Loan';
+import { LoanGrantedModel, LoanModel, LoanRequestModel } from '@/models/Loan';
 import {
 	consignmentCredit,
 	guaranteedCredit,
 	personalCredit,
 } from '@/parameters/Parameters';
-import { createLoan } from '@/repositories/loan.repository';
+import {
+	createLoan,
+	deleteLoanById,
+	findAllLoans,
+	findLoansByCpf,
+} from '@/repositories/loan.repository';
 import { findByCpf, saveCustomer } from '@/services/CustomerServices';
 import { Failure } from '@/utils/ResultPattern/Failure';
-import { ResultValue } from '@/utils/ResultPattern/Result';
+import { Result, ResultValue } from '@/utils/ResultPattern/Result';
 
 const findAvailableCredits = (
 	income: number,
@@ -56,11 +61,11 @@ const calculateCredits = async (
 	});
 };
 
-const requestNewLoan = async (model: LoanRequestModel) => {
+const requestNewLoan = async (model: LoanRequestModel): Promise<Result> => {
 	const customer = await findByCpf(model.cpf);
 
 	if (customer.isFailure) {
-		return Failure.From(customer.failure!).toResultValue();
+		return Failure.From(customer.failure!);
 	}
 
 	if (!customer.value) {
@@ -86,10 +91,25 @@ const requestNewLoan = async (model: LoanRequestModel) => {
 		installmentsNumber: model.installmentsNumber,
 		amount: model.amount,
 		customerCpf: model.cpf,
-		customer: customer.value._id!,
 		interestRate: selectedLoan.interestRate,
 		type: selectedLoan.type,
 	});
 };
 
-export { calculateCredits, requestNewLoan };
+const deleteLoan = async (id: string): Promise<Result> =>
+	await deleteLoanById(id);
+
+const findCustomerLoans = async (
+	cpf: string
+): Promise<ResultValue<LoanGrantedModel[]>> => await findLoansByCpf(cpf);
+
+const findLoans = async (): Promise<ResultValue<LoanGrantedModel[]>> =>
+	await findAllLoans();
+
+export {
+	calculateCredits,
+	requestNewLoan,
+	deleteLoan,
+	findCustomerLoans,
+	findLoans,
+};

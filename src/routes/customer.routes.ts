@@ -9,7 +9,7 @@ import validate from '@/middleware/validationsErrorHandler';
 import {
 	customerCpfValidation,
 	customerCreateValidation,
-} from '@/middleware/validatiors';
+} from '@/middleware/validations/customerValidations';
 
 const router = Router();
 

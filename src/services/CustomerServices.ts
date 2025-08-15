@@ -5,6 +5,7 @@ import {
 	findAllCustomers,
 	findCustomerByCpf,
 } from '@/repositories/customer.repository';
+import { deleteLoansByCpf } from '@/repositories/loan.repository';
 import { Failure } from '@/utils/ResultPattern/Failure';
 import { Result, ResultValue } from '@/utils/ResultPattern/Result';
 
@@ -40,7 +41,15 @@ const deleteByCpf = async (cpf: string): Promise<Result> => {
 
 	if (!customerResult.value) {
 		return Failure.NotFound(
-			'Não foi encontrado nenhum cliente com o CPF informado.'
+			`Não foi encontrado nenhum cliente com o CPF ${cpf}.`
+		);
+	}
+
+	const deleteResult = await deleteLoansByCpf(cpf);
+
+	if (!deleteResult.value) {
+		return Failure.InternalServer(
+			`Ocorreu um erro deletando os empréstimos do cliente ${cpf}.`
 		);
 	}
 

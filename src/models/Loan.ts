@@ -7,7 +7,6 @@ type LoanModel = {
 
 type LoanGrantedModel = {
 	_id?: string;
-	customer: string;
 	customerCpf: string;
 	amount: number;
 	installmentsNumber: number;

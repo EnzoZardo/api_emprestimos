@@ -4,7 +4,7 @@ import { Failure } from '@/utils/ResultPattern/Failure';
 import { Result, ResultValue } from '@/utils/ResultPattern/Result';
 
 const ERROR_MESSAGE =
-	'Ocorreu um erro ao buscar os dados no banco de dados. Tente novamente mais tarde!';
+	'Ocorreu um erro ao executar a ação no banco de dados. Tente novamente mais tarde!';
 
 const findAllLoans = async (): Promise<ResultValue<LoanGrantedModel[]>> => {
 	try {
@@ -44,4 +44,19 @@ const deleteLoanById = async (loanId: string): Promise<Result> => {
 	}
 };
 
-export { findAllLoans, findLoansByCpf, createLoan, deleteLoanById };
+const deleteLoansByCpf = async (cpf: string): Promise<Result> => {
+	try {
+		await Loan.deleteMany({ customerCpf: cpf });
+		return Result.Ok();
+	} catch {
+		return Failure.InternalServer(ERROR_MESSAGE);
+	}
+};
+
+export {
+	findAllLoans,
+	findLoansByCpf,
+	createLoan,
+	deleteLoanById,
+	deleteLoansByCpf,
+};

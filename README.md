@@ -21,9 +21,13 @@ Utiliza **Node.js**, **Express** e **MongoDB**.
 
 src/
 ├── app.ts # Arquivo principal da aplicação
+
 ├── routes/ # Definição das rotas da API
+
 ├── models/ # Modelos Mongoose
+
 ├── controllers/ # Lógica de cada rota
+
 └── config/ # Configurações (ex.: conexão MongoDB, rotas, app, etc.)
 
 > Após build, os arquivos compilados são gerados em `lib/`.
@@ -47,17 +51,29 @@ Compilar para dev
 
 npm run build
 🔌 Rotas da API
-Método	| Endpoint |	Descrição
-POST	| /creditos	| Busca os créditos disponíveis para um cliente e cadastra ele
-DELETE	| /emprestimos/:id	| Remove um empréstimo pelo ID
-GET |	/emprestimos/:cpf	| Cria um empréstimo para um cliente pelo CPF
-GET |	/emprestimos	| Lista todos os empréstimos
-POST |	/emprestimos	| Cria um novo empréstimo
-GET |	/clientes	| Lista todos os clientes
-POST |	/clientes	| Cadastra um novo cliente
-GET |	/clientes/:cpf	| Consulta um cliente pelo CPF
-DELETE |	/clientes/:cpf |	Remove um cliente pelo CPF
-GET |	/rotas |	Lista todas as rotas disponíveis
+| --- | --- |
+| Método	| Endpoint |	Descrição |
+| --- | --- |
+| POST	| /creditos	| Busca os créditos disponíveis para um cliente e cadastra ele | 
+| --- | --- |
+| DELETE	| /emprestimos/:id	| Remove um empréstimo pelo ID | 
+| --- | --- |
+| GET |	/emprestimos/:cpf	| Cria um empréstimo para um cliente pelo CPF | 
+| --- | --- |
+| GET |	/emprestimos	| Lista todos os empréstimos | 
+| --- | --- |
+| POST |	/emprestimos	| Cria um novo empréstimo | 
+| --- | --- |
+| GET |	/clientes	| Lista todos os clientes | 
+| --- | --- |
+| POST |	/clientes	| Cadastra um novo cliente | 
+| --- | --- |
+| GET |	/clientes/:cpf	| Consulta um cliente pelo CPF | 
+| --- | --- |
+| DELETE |	/clientes/:cpf |	Remove um cliente pelo CPF | 
+| --- | --- |
+| GET |	/rotas |	Lista todas as rotas disponíveis | 
+| --- | --- |
 
 🛠 Scripts disponíveis
 npm start – Executa a aplicação em modo desenvolvimento (com tsx watch).

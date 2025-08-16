@@ -58,8 +58,7 @@ npm run build
 |--------|---------|-----------|
 | POST   | /creditos | Busca os créditos disponíveis para um cliente e cadastra ele |
 | DELETE | /emprestimos/:id | Remove um empréstimo pelo ID |
-| GET    | /emprestimos/:cpf | Cria um empréstimo para um cliente pelo CPF |
-| GET    | /emprestimos | Lista todos os empréstimos |
+| GET    | /emprestimos | Lista todos os empréstimos, podendo ser filtrado por cpf |
 | POST   | /emprestimos | Cria um novo empréstimo |
 | GET    | /clientes | Lista todos os clientes |
 | POST   | /clientes | Cadastra um novo cliente |

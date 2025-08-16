@@ -23,7 +23,7 @@ router.delete(
 	validate,
 	deleteCustomerLoan
 );
-router.post(
+router.get(
 	'/emprestimos/:cpf',
 	findLoansValidation,
 	validate,

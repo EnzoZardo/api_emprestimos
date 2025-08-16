@@ -5,7 +5,7 @@ import {
 	findCustomerLoans,
 	requestNewLoan,
 } from '@/services/LoanServices';
-import { findAllLoans } from '@/repositories/loan.repository';
+import { findAllLoans as findLoans } from '@/repositories/loan.repository';
 
 const listCredits = async (req: Request, res: Response) => {
 	const credits = await calculateCredits(req.body);
@@ -22,20 +22,9 @@ const deleteCustomerLoan = async (req: Request, res: Response) => {
 	result.toResponse(res);
 };
 
-const listCustomerLoans = async (req: Request, res: Response) => {
-	const result = await findCustomerLoans(req.params.cpf);
-	result.toResponse(res);
-};
-
 const listLoans = async (req: Request, res: Response) => {
-	const result = await findAllLoans();
+	const result = await findCustomerLoans(req.query.cpf as string | undefined);
 	result.toResponse(res);
 };
 
-export {
-	listCredits,
-	deleteCustomerLoan,
-	createCustomerLoan,
-	listCustomerLoans,
-	listLoans,
-};
+export { listCredits, deleteCustomerLoan, createCustomerLoan, listLoans };

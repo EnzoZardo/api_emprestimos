@@ -103,16 +103,13 @@ const deleteLoan = async (id: string): Promise<Result> =>
 	await deleteLoanById(id);
 
 const findCustomerLoans = async (
-	cpf: string
-): Promise<ResultValue<LoanGrantedModel[]>> => await findLoansByCpf(cpf);
+	cpf?: string
+): Promise<ResultValue<LoanGrantedModel[]>> => {
+	if (cpf) {
+		return await findLoansByCpf(cpf);
+	}
 
-const findLoans = async (): Promise<ResultValue<LoanGrantedModel[]>> =>
-	await findAllLoans();
-
-export {
-	calculateCredits,
-	requestNewLoan,
-	deleteLoan,
-	findCustomerLoans,
-	findLoans,
+	return await findAllLoans();
 };
+
+export { calculateCredits, requestNewLoan, deleteLoan, findCustomerLoans };

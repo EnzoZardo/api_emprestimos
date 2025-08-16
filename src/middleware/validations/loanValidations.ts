@@ -7,15 +7,6 @@ const deleteLoanValidation = [
 		.withMessage("O parametro 'id' não pode estar vazio."),
 ];
 
-const findLoansValidation = [
-	param('cpf')
-		.notEmpty()
-		.withMessage("O parametro 'cpf' é obrigatório")
-		.isNumeric()
-		.matches(/\d{11}/)
-		.withMessage("O parametro 'cpf' deve ter 11 dígitos"),
-];
-
 const createLoanValidation = [
 	body('installmentsNumber')
 		.notEmpty()
@@ -40,4 +31,4 @@ const createLoanValidation = [
 		.withMessage("O campo 'type' deve estar entre os valores permitidos"),
 ];
 
-export { deleteLoanValidation, createLoanValidation, findLoansValidation };
+export { deleteLoanValidation, createLoanValidation };

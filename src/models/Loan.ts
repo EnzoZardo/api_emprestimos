@@ -1,4 +1,5 @@
 import { Credit, CreditType } from '@/models/Credit';
+import Loan from '@/models/MongoDB/LoanSchema';
 
 type LoanModel = {
 	customer: string;
@@ -21,4 +22,18 @@ type LoanRequestModel = {
 	type: CreditType;
 };
 
-export type { LoanModel, LoanGrantedModel, LoanRequestModel };
+const asMongoModel = (model: LoanGrantedModel) =>
+	new Loan({
+		amount: model.amount,
+		customerCpf: model.customerCpf,
+		installmentsNumber: model.installmentsNumber,
+		interestRate: model.interestRate,
+		type: model.type,
+	});
+
+export {
+	type LoanModel,
+	type LoanGrantedModel,
+	type LoanRequestModel,
+	asMongoModel,
+};

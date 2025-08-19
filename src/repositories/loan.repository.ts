@@ -1,4 +1,4 @@
-import { LoanGrantedModel } from '@/models/Loan';
+import { asMongoModel, LoanGrantedModel } from '@/models/Loan';
 import Loan from '@/models/MongoDB/LoanSchema';
 import { Failure } from '@/utils/ResultPattern/Failure';
 import { Result, ResultValue } from '@/utils/ResultPattern/Result';
@@ -28,7 +28,7 @@ const findLoansByCpf = async (
 
 const createLoan = async (loan: LoanGrantedModel): Promise<Result> => {
 	try {
-		await Loan.create(loan);
+		await Loan.create(asMongoModel(loan));
 		return Result.Ok();
 	} catch {
 		return Failure.InternalServer(ERROR_MESSAGE);

@@ -1,5 +1,5 @@
 import Customer from '@/models/MongoDB/CustomerSchema';
-import { CustomerModel } from '@/models/Customer';
+import { asMongoModel, CustomerModel } from '@/models/Customer';
 import { Failure } from '@/utils/ResultPattern/Failure';
 import { Result, ResultValue } from '@/utils/ResultPattern/Result';
 
@@ -31,7 +31,9 @@ const createNewCustomer = async (
 ): Promise<ResultValue<CustomerModel>> => {
 	try {
 		return ResultValue.Ok(
-			(await Customer.create(customer)).toObject<CustomerModel>()
+			(
+				await Customer.create(asMongoModel(customer))
+			).toObject<CustomerModel>()
 		);
 	} catch {
 		return Failure.InternalServer(ERROR_MESSAGE).toResultValue();

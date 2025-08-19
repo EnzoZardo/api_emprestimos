@@ -29,6 +29,16 @@ src/
 
 ├── controllers/ # Lógica de cada rota
 
+├── services/ # Lógica de cada request
+
+├── repositories/ # Consultas do banco de dados
+
+├── utils/ # Funções e classes úteis para a aplicação
+
+├── middleware/ # Middlewares da aplicação, como validações, etc
+
+├── parameters/ # Parametros de funcionamento da aplicação, para que sejam usados em regras de negócios
+
 └── config/ # Configurações (ex.: conexão MongoDB, rotas, app, etc.)
 
 > Após build, os arquivos compilados são gerados em `lib/`.

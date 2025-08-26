@@ -7,6 +7,8 @@ dotenv.config();
 
 // #region App
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 configureServer(app);
 startServer(app, {
 	port: process.env.PORT || 3000,
@@ -15,6 +17,15 @@ startServer(app, {
 
 // #region Database
 connectDatabase(process.env.MONGO_URI!);
+// #endregion
+
+// #region EJS
+app.set('view engine', 'ejs');
+app.set('views', './views');
+
+app.get('/', (_req, res) => {
+    res.render('index');
+});
 // #endregion
 
 export default app;

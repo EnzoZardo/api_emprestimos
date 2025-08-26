@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Página Inicial</title>
+</head>
+<body>
+  <!-- inclui o header -->
+  <%- include("partials/header") %>
+
+ <% if (model && model.name) { %>
+    <h2>Último cadastro:</h2>
+    <p>Nome: <%= model.name %></p>
+    <p>Idade: <%= model.age %></p>
+    <p>CPF: <%= model.cpf %></p>
+    <p>Renda: <%= model.income %></p>
+    <p>Localização: <%= model.location %></p>
+  <% } %>
+
+  <!-- inclui o footer -->
+  <%- include("partials/footer") %>
+</body>
+</html>

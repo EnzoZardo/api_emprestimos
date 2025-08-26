@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Página Inicial</title>
+</head>
+<body>
+  <!-- inclui o header -->
+  <%- include("partials/header") %>
+
+  <form action="/creditos" method="POST">
+    <label>Nome:</label>
+    <input type="text" name="name" required>
+
+    <label>Idade:</label>
+    <input type="number" name="age" required>
+
+    <label>CPF:</label>
+    <input type="text" name="cpf" required>
+
+    <label>Renda:</label>
+    <input type="number" step="0.01" name="income" required>
+
+    <label>Localização:</label>
+    <input type="text" name="location" required>
+
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <!-- inclui o footer -->
+  <%- include("partials/footer") %>
+</body>
+</html>

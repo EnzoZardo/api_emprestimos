@@ -1,4 +1,5 @@
 import Customer from '@/models/MongoDB/CustomerSchema';
+
 type CustomerModel = {
 	_id?: string;
 	cpf: string;

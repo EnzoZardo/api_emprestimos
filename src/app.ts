@@ -5,6 +5,8 @@ import { startServer, configureServer } from './config/server';
 
 dotenv.config();
 
+
+
 // #region App
 const app = express();
 app.use(express.json());
@@ -22,6 +24,8 @@ connectDatabase(process.env.MONGO_URI!);
 // #region EJS
 app.set('view engine', 'ejs');
 app.set('views', './views');
+
+app.use(express.static('public'));
 
 app.get('/', (_req, res) => {
     res.render('index');

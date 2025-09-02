@@ -1,3 +1,5 @@
+Desenvolvido por: Enzo Daniel Zardo, Iury Ribeiro Ianoski e Moisés Matheus B. Gonçalves
+
 # 📌 API de Empréstimos
 
 API desenvolvida para a disciplina **Desenvolvimento de Sistemas Web** no curso de **Análise e Desenvolvimento de Sistemas (ADS)**.  
@@ -50,8 +52,7 @@ src/
 1. **Clone o repositório**
    git clone https://github.com/EnzoZardo/api_emprestimos.git
    cd api_emprestimos
-Instale as dependências
-
+   Instale as dependências
 
 npm install
 Configure as variáveis de ambiente
@@ -63,18 +64,17 @@ Compilar para dev
 npm run build
 🔌 Rotas da API
 
-
-| Método | Endpoint | Descrição |
-|--------|---------|-----------|
-| POST   | /creditos | Busca os créditos disponíveis para um cliente e cadastra ele |
-| DELETE | /emprestimos/:id | Remove um empréstimo pelo ID |
-| GET    | /emprestimos | Lista todos os empréstimos, podendo ser filtrado por cpf |
-| POST   | /emprestimos | Cria um novo empréstimo |
-| GET    | /clientes | Lista todos os clientes |
-| POST   | /clientes | Cadastra um novo cliente |
-| GET    | /clientes/:cpf | Consulta um cliente pelo CPF |
-| DELETE | /clientes/:cpf | Remove um cliente pelo CPF |
-| GET    | /rotas | Lista todas as rotas disponíveis |
+| Método | Endpoint         | Descrição                                                    |
+| ------ | ---------------- | ------------------------------------------------------------ |
+| POST   | /creditos        | Busca os créditos disponíveis para um cliente e cadastra ele |
+| DELETE | /emprestimos/:id | Remove um empréstimo pelo ID                                 |
+| GET    | /emprestimos     | Lista todos os empréstimos, podendo ser filtrado por cpf     |
+| POST   | /emprestimos     | Cria um novo empréstimo                                      |
+| GET    | /clientes        | Lista todos os clientes                                      |
+| POST   | /clientes        | Cadastra um novo cliente                                     |
+| GET    | /clientes/:cpf   | Consulta um cliente pelo CPF                                 |
+| DELETE | /clientes/:cpf   | Remove um cliente pelo CPF                                   |
+| GET    | /rotas           | Lista todas as rotas disponíveis                             |
 
 🛠 Scripts disponíveis
 npm start – Executa a aplicação em modo desenvolvimento (com tsx watch).
